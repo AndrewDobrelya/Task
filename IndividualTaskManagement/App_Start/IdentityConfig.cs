@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using IndividualTaskManagement.Models;
 using System.Net.Mail;
+using Twilio;
 
 namespace IndividualTaskManagement
 {
@@ -43,6 +44,14 @@ namespace IndividualTaskManagement
     {
         public Task SendAsync(IdentityMessage message)
         {
+            string AccountSid = "AC7d5cb897a520ecae5b9704e5cf836cac";
+
+            string AuthToken = "e9c9fe3e3199a1c33fd45d3282691134";
+
+            string twilioPhoneNumber = "+12568292489";
+
+            var twilio = new TwilioRestClient(AccountSid, AuthToken);
+            twilio.SendMessage(twilioPhoneNumber, message.Destination, message.Body);
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
         }

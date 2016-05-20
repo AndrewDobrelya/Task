@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -72,11 +69,14 @@ namespace IndividualTaskManagement.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindAsync(model.UserName, model.Password);
-            if (user.EmailConfirmed == false)
+            var user = await UserManager.FindByNameAsync(model.UserName);
+            if (user != null)
             {
-                ModelState.AddModelError("", "Не подтвержден email.");
-                return View(model);
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    return View("Error");
+                }   
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
