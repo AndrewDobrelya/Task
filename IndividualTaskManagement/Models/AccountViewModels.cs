@@ -49,9 +49,8 @@ namespace IndividualTaskManagement.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +63,19 @@ namespace IndividualTaskManagement.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string LastName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
