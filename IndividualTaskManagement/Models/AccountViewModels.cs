@@ -63,6 +63,11 @@ namespace IndividualTaskManagement.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "Who you are?")]
+        public string Role { get; set; }
+
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }

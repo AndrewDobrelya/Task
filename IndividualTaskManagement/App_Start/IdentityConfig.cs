@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using IndividualTaskManagement.Models;
+using System.Net.Mail;
 
 namespace IndividualTaskManagement
 {
@@ -18,8 +19,23 @@ namespace IndividualTaskManagement
     {
         public Task SendAsync(IdentityMessage message)
         {
+            var from = "IndividualTaskManagement@mail.ru";
+            var pass = "/123QWEasd/";
+
+            SmtpClient client = new SmtpClient("smtp.mail.ru", 25);
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential(from, pass);
+            client.EnableSsl = true;
+
+            // создаем письмо: message.Destination - адрес получателя
+            var mail = new MailMessage(from, message.Destination);
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            return client.SendMailAsync(mail);
         }
     }
 

@@ -13,7 +13,7 @@ namespace IndividualTaskManagement.Controllers
             return View();
         }
 
-        
+        [Authorize(Roles = "admin")]
         public ActionResult About()
         {
             ViewBag.Message = "Your applicssssssation description page.";
