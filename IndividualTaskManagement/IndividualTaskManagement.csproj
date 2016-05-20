@@ -307,6 +307,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Manage\AddEmailAddress.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -61,6 +61,7 @@ namespace IndividualTaskManagement.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangeEmailSuccess ? "Your email address has been changes."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -68,6 +69,7 @@ namespace IndividualTaskManagement.Controllers
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                Email = await UserManager.GetEmailAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -99,6 +101,34 @@ namespace IndividualTaskManagement.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
+
+        public ActionResult AddEmailAddress()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddEmailAddress(ChangeMailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                user.Email = model.Email;
+                user.EmailConfirmed = false;
+                var result = await UserManager.UpdateAsync(user);
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeEmailSuccess });
+            }
+            else
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+            // Generate the token and send it
+
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
@@ -381,6 +411,7 @@ namespace IndividualTaskManagement.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            ChangeEmailSuccess,
             Error
         }
 
