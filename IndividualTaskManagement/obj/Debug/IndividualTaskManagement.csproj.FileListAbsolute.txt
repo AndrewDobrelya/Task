@@ -159,7 +159,6 @@ C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Microsoft.Owi
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.csprojResolveAssemblyReference.cache
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.dll
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.pdb
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.InitialCreate.resources
@@ -176,3 +175,4 @@ C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\System.Net.Ht
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Twilio.Api.pdb
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Twilio.Api.xml
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.SecondMigration.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.ThirdMigration.resources
