@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201605221504532_SixMigration.Designer.cs">
       <DependentUpon>201605221504532_SixMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605221931323_SeventhMigration.cs" />
+    <Compile Include="Migrations\201605221931323_SeventhMigration.Designer.cs">
+      <DependentUpon>201605221931323_SeventhMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
@@ -399,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605221504532_SixMigration.resx">
       <DependentUpon>201605221504532_SixMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605221931323_SeventhMigration.resx">
+      <DependentUpon>201605221931323_SeventhMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

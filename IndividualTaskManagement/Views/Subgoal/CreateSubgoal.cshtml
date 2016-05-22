@@ -52,8 +52,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">                  
-                    <input type="date" name="endDate">
-
+                    @*<input type="date" runat="server" name="endDate"  value="YY-MM-DD">*@
+                    @Html.EditorFor(model => model.endDate, new { @type = "date" })
                     @Html.ValidationMessageFor(model => model.endDate)
                 </div>
             </div>

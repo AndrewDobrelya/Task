@@ -1,13 +1,19 @@
 ﻿@model IndividualTaskManagement.Models.Subgoal
 @{
     ViewBag.Title = "Details";
+    var isOverdue = ViewBag.IsOverdue;
 }
 
 <h2>Details</h2>
 
+@if (isOverdue)
+{
+<h1>Overdue</h1>
+}
+
 <div class="col-md-4 " style="border-right:1px solid #eeeeee">
     <h2>О курсе</h2>
-
+  
     <div style="padding-top:10px">
         <hr />
         <dl class="dl-horizontal">

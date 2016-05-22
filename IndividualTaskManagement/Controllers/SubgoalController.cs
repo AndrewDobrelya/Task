@@ -5,18 +5,32 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using Microsoft.Owin.Security;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using IndividualTaskManagement.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace IndividualTaskManagement.Controllers
 {
     public class SubgoalController : Controller
     {
-
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         private ApplicationDbContext db = new ApplicationDbContext();
-        private static int goalId;
+       
         // GET: Subgoal
         [Authorize(Roles = "student")]
         public ActionResult Index()
@@ -41,6 +55,11 @@ namespace IndividualTaskManagement.Controllers
             }
 
             Subgoal subgoal = db.Subgoal.Find(id);
+            if (subgoal.EndDate < DateTime.Now)
+            {
+                subgoal.Overdue = true;
+            }
+            ViewBag.IsOverdue = subgoal.Overdue;
             //ViewBag.Student = IsNeededStudent(subgoal.Student.Id);
             if (subgoal == null)
             {
@@ -58,7 +77,7 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateSubgoal( CreateSubgoalModel subgoalview, int id)
+        public async Task<ActionResult> CreateSubgoal( CreateSubgoalModel subgoalview, int id)
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +87,19 @@ namespace IndividualTaskManagement.Controllers
                 var subgoal = new Subgoal() { Name = subgoalview.name, Student = db.Users.Find(subgoalview.student_id), Description = subgoalview.description, EndDate = subgoalview.endDate };
                 subgoal.Goal = db.Goal.First(c => c.Id == id);
                 subgoal.Overdue = false;
-                subgoal.AtTetm = false;
+                subgoal.AtTerm = false;
                 db.Subgoal.Add(subgoal);
                 db.SaveChanges();
+                if (UserManager.SmsService != null)
+                {
+                    var message = new IdentityMessage
+                    {
+                        Destination = subgoal.Student.PhoneNumber,
+                        Body = "Your security code is: " 
+                    };
+                    await UserManager.SmsService.SendAsync(message);
+                }
+                //await UserManager.SendEmailAsync(subgoal.Student.Id, "Confirm your account", "Please confirm your account by clicking");
                 return RedirectToAction("Index", "Goal");
             }
             return View(subgoalview);            
@@ -118,7 +147,7 @@ namespace IndividualTaskManagement.Controllers
                 var subgoal = db.Subgoal.Find(subgoalview.id);
                 subgoal.Name = subgoalview.name;
                 subgoal.Description = subgoalview.description;
-             
+                subgoal.AtTerm = subgoalview.atTerm;
                 subgoal.EndDate = subgoalview.endDate;
                 db.Entry(subgoal).State = EntityState.Modified;
                 db.SaveChanges();
@@ -160,7 +189,7 @@ namespace IndividualTaskManagement.Controllers
             else
             {
 
-                return RedirectToAction("Details");
+                return RedirectToAction("Index");
             }
         }
 

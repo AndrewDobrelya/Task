@@ -15,7 +15,7 @@ namespace IndividualTaskManagement.Models
         public ApplicationUser Student { get; set; }
         public DateTime EndDate { get; set; }
         public bool Overdue { get; set; }
-        public bool AtTetm { get; set; }
+        public bool AtTerm { get; set; }
     }
 
     public partial class CreateSubgoalModel
@@ -40,6 +40,8 @@ namespace IndividualTaskManagement.Models
         public string name { get; set; }
         public string student_id { get; set; }
         public string description { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime endDate { get; set; }       
     }
 
@@ -50,7 +52,7 @@ namespace IndividualTaskManagement.Models
             id = subgoal.Id;
             name = subgoal.Name;
             description = subgoal.Description;
-           
+            atTerm = subgoal.AtTerm;
             endDate = subgoal.EndDate;
         }
 
@@ -64,6 +66,9 @@ namespace IndividualTaskManagement.Models
         [Display(Name = "Task")]
         public string name { get; set; }       
         public string description { get; set; }
+        public bool atTerm { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime endDate { get; set; }
     }
 }
