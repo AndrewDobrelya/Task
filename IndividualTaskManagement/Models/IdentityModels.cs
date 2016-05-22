@@ -29,7 +29,7 @@ namespace IndividualTaskManagement.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+        public DbSet<Comment> Comment { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Goal> Goal { get; set; }
         public DbSet<Subgoal> Subgoal { get; set; }

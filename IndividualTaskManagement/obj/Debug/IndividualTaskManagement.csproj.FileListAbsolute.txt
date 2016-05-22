@@ -180,3 +180,5 @@ C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\Individ
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FifthMigration.resources
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.csprojResolveAssemblyReference.cache
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.Mig.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.DataMigratiон.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.SixMigration.resources

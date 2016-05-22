@@ -20,7 +20,7 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         public ActionResult Index()
         {
-             
+            
             string user = User.Identity.GetUserId();
             var goal = db.Goal.Include(l => l.Author).Where(l => l.Author.Id == user);           
             return View(goal.ToList());
@@ -79,8 +79,6 @@ namespace IndividualTaskManagement.Controllers
                 var goal = db.Goal.Find(goalview.id);
                 goal.Name = goalview.name;                
                 goal.Subject = db.Subject.Find(goalview.subject_id);
-                
-
                 db.Entry(goal).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,7 +108,9 @@ namespace IndividualTaskManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+          
             Goal goal = db.Goal.Find(id);
+          
             db.Goal.Remove(goal);
             db.SaveChanges();
             if (User.IsInRole("admin"))
@@ -123,13 +123,7 @@ namespace IndividualTaskManagement.Controllers
 
                 return RedirectToAction("Index");
             }
-        }
-
-        private bool IsNeededTeacher(string goalId)
-        {
-            var task = User.Identity.GetUserId();
-            return task == goalId;
-        }
+        }   
 
         [Authorize(Roles = "teacher")]
         public ActionResult Details(int? id)
@@ -138,9 +132,7 @@ namespace IndividualTaskManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Goal goal = db.Goal.Find(id);
-            ViewBag.Teacher = IsNeededTeacher(goal.Author.Id);
+            Goal goal = db.Goal.Find(id);            
             if (goal == null)
             {
                 return HttpNotFound();

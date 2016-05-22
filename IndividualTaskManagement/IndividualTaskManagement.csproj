@@ -257,9 +257,18 @@
     <Compile Include="Migrations\201605220745380_Mig.Designer.cs">
       <DependentUpon>201605220745380_Mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605221402250_DataMigratiон.cs" />
+    <Compile Include="Migrations\201605221402250_DataMigratiон.Designer.cs">
+      <DependentUpon>201605221402250_DataMigratiон.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605221504532_SixMigration.cs" />
+    <Compile Include="Migrations\201605221504532_SixMigration.Designer.cs">
+      <DependentUpon>201605221504532_SixMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Subgoal.cs" />
@@ -346,6 +355,13 @@
     <Content Include="Views\Goal\Delete.cshtml" />
     <Content Include="Views\Goal\Details.cshtml" />
     <Content Include="Views\Subgoal\CreateSubgoal.cshtml" />
+    <Content Include="Views\Subgoal\Index.cshtml" />
+    <Content Include="Views\Subgoal\Details.cshtml" />
+    <Content Include="Views\Subgoal\SubgoalList.cshtml" />
+    <Content Include="Views\Subgoal\Delete.cshtml" />
+    <Content Include="Views\Subgoal\Edit.cshtml" />
+    <Content Include="Views\Subgoal\Comment.cshtml" />
+    <Content Include="Views\Subgoal\CommentList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -377,6 +393,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605220745380_Mig.resx">
       <DependentUpon>201605220745380_Mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605221402250_DataMigratiон.resx">
+      <DependentUpon>201605221402250_DataMigratiон.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605221504532_SixMigration.resx">
+      <DependentUpon>201605221504532_SixMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

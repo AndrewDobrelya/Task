@@ -23,8 +23,7 @@ namespace IndividualTaskManagement.Models
         public CreateSubgoalModel(Subgoal subgoal)
         {
             id = subgoal.Id;
-            name = subgoal.Name;
-            
+            name = subgoal.Name;           
             description = subgoal.Description;
             student_id = subgoal.Student.Id;
             endDate = subgoal.EndDate;           
@@ -40,6 +39,30 @@ namespace IndividualTaskManagement.Models
         [Display(Name = "Task")]
         public string name { get; set; }
         public string student_id { get; set; }
+        public string description { get; set; }
+        public DateTime endDate { get; set; }       
+    }
+
+    public partial class EditSubgoalModel
+    {
+        public EditSubgoalModel(Subgoal subgoal)
+        {
+            id = subgoal.Id;
+            name = subgoal.Name;
+            description = subgoal.Description;
+           
+            endDate = subgoal.EndDate;
+        }
+
+        public EditSubgoalModel()
+        {
+
+        }
+
+        public int id { get; set; }
+
+        [Display(Name = "Task")]
+        public string name { get; set; }       
         public string description { get; set; }
         public DateTime endDate { get; set; }
     }

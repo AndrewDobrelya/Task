@@ -1,0 +1,59 @@
+﻿@model IndividualTaskManagement.Models.Subgoal
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="col-md-4 " style="border-right:1px solid #eeeeee">
+    <h2>О курсе</h2>
+
+    <div style="padding-top:10px">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Goal.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Goal.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-11">
+        <hr />
+        <p>
+            @Html.Action("Comment", "Subgoal", new { subgoalId = Model.Id })
+        </p>
+    </div>
+
+    <br />
+    <div class="col-md-11">
+        <hr />
+        <p>
+            @Html.Action("CommentList", "Subgoal", new { subgoalId = Model.Id })
+        </p>
+    </div>

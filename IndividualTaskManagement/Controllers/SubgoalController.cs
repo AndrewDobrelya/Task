@@ -18,9 +18,35 @@ namespace IndividualTaskManagement.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private static int goalId;
         // GET: Subgoal
+        [Authorize(Roles = "student")]
         public ActionResult Index()
         {
-            return View();
+            string user = User.Identity.GetUserId();
+            var subgoal = db.Subgoal.Include(s => s.Student).Where(s => s.Student.Id == user);
+            return View(subgoal.ToList());
+        }
+
+        //private bool IsNeededStudent(string subgoalId)
+        //{
+        //    var subgoal = User.Identity.GetUserId();
+        //    return subgoal == subgoalId;
+        //}
+
+        [Authorize(Roles = "student, teacher")]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Subgoal subgoal = db.Subgoal.Find(id);
+            //ViewBag.Student = IsNeededStudent(subgoal.Student.Id);
+            if (subgoal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subgoal);
         }
 
         [Authorize(Roles = "teacher")]
@@ -50,18 +76,169 @@ namespace IndividualTaskManagement.Controllers
             return View(subgoalview);            
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateSubgoal([Bind(Include = "Id")] CreateSubgoalModel subgoal, int id)
-        //{
+        public ActionResult SubgoalList(int goalId)
+        {
+            List<Subgoal> subgoal = new List<Subgoal>();
+            ViewBag.GoalId = goalId;
            
+            foreach (var t in db.Subgoal.ToList())
+            {
+                if (t.Goal.Id == goalId)
+                {
+                    subgoal.Add(t);
+                   
+                }
+            }
+            return View(subgoal);
+        }
 
-        //        db.Test.Add(test);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Details", "Course", new Goal { Id = id });
-        //    }
+        [Authorize(Roles = "teacher")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subgoal subgoal = db.Subgoal.Find(id);
+          
+            if (subgoal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(new EditSubgoalModel(subgoal));
+        }
 
-        //    return View(test);
-        //}
+        [Authorize(Roles = "teacher")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditSubgoalModel subgoalview)
+        {
+            if (ModelState.IsValid)
+            {
+                var subgoal = db.Subgoal.Find(subgoalview.id);
+                subgoal.Name = subgoalview.name;
+                subgoal.Description = subgoalview.description;
+             
+                subgoal.EndDate = subgoalview.endDate;
+                db.Entry(subgoal).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details");
+            }
+            return View(subgoalview);
+        }
+
+        [Authorize(Roles = "teacher, admin")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subgoal subgoal = db.Subgoal.Find(id);          
+            if (subgoal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subgoal);
+        }
+
+
+
+        [Authorize(Roles = "teacher, admin")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Subgoal subgoal = db.Subgoal.Find(id);
+            db.Subgoal.Remove(subgoal);       
+            db.SaveChanges();
+            if (User.IsInRole("admin"))
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+
+                return RedirectToAction("Details");
+            }
+        }
+
+
+        public ActionResult Comment(int subgoalId)
+        {
+            ViewBag.SubgoalId = subgoalId;
+            return View();
+        }
+
+        public ActionResult CommentList(int subgoalId)
+        {
+            Subgoal subgoal = db.Subgoal.First(s => s.Id == subgoalId);
+            string userId = User.Identity.GetUserId();
+            ViewBag.UserId = userId;
+            ViewBag.NeededTeacher = false;
+
+            if (userId == subgoal.Goal.Author.Id)
+            {
+                ViewBag.NeededTeacher = true;
+            }
+
+            List<Comment> comments = db.Comment.Where(c => c.subgoal.Id == subgoalId && c.previosComment == null).ToList<Comment>();
+
+            List<Comment> teacherComments = db.Comment.Where(c => c.subgoal.Id == subgoalId && c.previosComment != null).ToList<Comment>();
+
+            ViewBag.CommentList = comments;
+            ViewBag.TeacherComments = teacherComments;
+
+            return View();
+        }
+
+        public ActionResult DeleteComment(int commentId)
+        {
+            var com = db.Comment.First(c => c.id == commentId);
+            int subgoalId = com.subgoal.Id;
+            db.Comment.Remove(com);
+
+            List<Comment> tComments = db.Comment.Where(tc => tc.previosComment != null && tc.previosComment.id == commentId).ToList<Comment>();
+
+            if (tComments.Count > 0)
+            {
+                foreach (var c in tComments)
+                {
+                    db.Comment.Remove(c);
+                }
+            }
+
+            db.SaveChanges();
+            return Redirect("Details/" + subgoalId);
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(string commentText, int subgoalId)
+        {
+            var fSubgoal = db.Subgoal.First(c => c.Id == subgoalId);
+            string userId = User.Identity.GetUserId();
+            var u = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
+            db.Comment.Add(new Comment { text = commentText, subgoal = fSubgoal, user = u.FindById(userId), date = DateTime.Now, });
+            db.SaveChanges();
+
+
+            return Redirect("Details/" + subgoalId);
+        }
+
+        public ActionResult AddTeacherComment(string commentText, int subgoalId, int prevComment)
+        {
+            var fSubgoal = db.Subgoal.First(c => c.Id == subgoalId);
+            string userId = User.Identity.GetUserId();
+            var u = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var comment = db.Comment.First(c => c.id == prevComment);
+            db.Comment.Add(new Comment { text = commentText, previosComment = comment, subgoal = fSubgoal, user = u.FindById(userId), date = DateTime.Now, });
+            db.SaveChanges();
+
+
+            return Redirect("Details/" + subgoalId);
+        }
+
     }
 }
