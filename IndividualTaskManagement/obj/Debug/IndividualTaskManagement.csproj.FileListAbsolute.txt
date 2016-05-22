@@ -176,3 +176,6 @@ C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Twilio.Api.pd
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\bin\Twilio.Api.xml
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.SecondMigration.resources
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.ThirdMigration.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FouthMigration.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FifthMigration.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.csprojResolveAssemblyReference.cache

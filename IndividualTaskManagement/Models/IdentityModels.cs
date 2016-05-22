@@ -32,6 +32,7 @@ namespace IndividualTaskManagement.Models
 
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Goal> Goal { get; set; }
+        public DbSet<Subgoal> Subgoal { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
