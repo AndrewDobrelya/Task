@@ -22,7 +22,7 @@ namespace IndividualTaskManagement.Controllers
         {
             
             string user = User.Identity.GetUserId();
-            var goal = db.Goal.Include(l => l.Author).Where(l => l.Author.Id == user);           
+            var goal = db.Goal.Include(l => l.Author).Where(l => l.Author.Id == user);                        
             return View(goal.ToList());
         }
 
@@ -132,7 +132,15 @@ namespace IndividualTaskManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Goal goal = db.Goal.Find(id);            
+            Goal goal = db.Goal.Find(id);
+            var subgoal = db.Subgoal.Where(s => s.Goal.Id == id);
+            int countsubgoal = subgoal.Count();
+            var complite = subgoal.Where(s => s.AtTerm == true);
+            int countCoplite = complite.Count();
+            int copleteness = 100 / countsubgoal * countCoplite;
+            goal.Completeness = copleteness;
+            db.Entry(goal).State = EntityState.Modified;
+            db.SaveChanges();
             if (goal == null)
             {
                 return HttpNotFound();
