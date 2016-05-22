@@ -13,7 +13,7 @@ namespace IndividualTaskManagement.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public ApplicationUser Student { get; set; }
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
         public bool Overdue { get; set; }
         public bool AtTetm { get; set; }
     }
@@ -41,6 +41,6 @@ namespace IndividualTaskManagement.Models
         public string name { get; set; }
         public string student_id { get; set; }
         public string description { get; set; }
-        public string endDate { get; set; }
+        public DateTime endDate { get; set; }
     }
 }

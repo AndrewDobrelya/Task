@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "CreateSubgoal";
 
-    var student = new ApplicationDbContext().Users;  
+    //var student = new ApplicationDbContext().Users;
     //var student = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
+    var users = new ApplicationDbContext().Users;
+    var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
+    var student = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId));
 
 }
 
@@ -48,10 +51,9 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.endDate, new { @class = "date-picker" })                    
-                    <input class="text-box single-line" id="endDate" name="endDate" type="text" value="">
-                    <span class="field-validation-valid" data-valmsg-for="endDate" data-valmsg-replace="true"> </span>
+                <div class="col-md-10">                  
+                    <input type="date" name="endDate">
+
                     @Html.ValidationMessageFor(model => model.endDate)
                 </div>
             </div>
