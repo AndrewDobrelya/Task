@@ -1,4 +1,5 @@
 ﻿@model IndividualTaskManagement.Models.Subgoal
+
 @{
     ViewBag.Title = "Details";
     var isOverdue = ViewBag.IsOverdue;
@@ -46,7 +47,13 @@
             <dd>
                 @Html.DisplayFor(model => model.EndDate)
             </dd>
-
+            <dd>
+                <input type='file' id="files" multiple="multiple" />
+                <input type="button" id="upload" value="Upload" />
+            </dd>
+            <dd>
+                @Html.ActionLink("Download", "Download", new { subgoalId = Model.Id })
+                </dd>
         </dl>
     </div>
     <div class="col-md-11">
@@ -63,3 +70,40 @@
             @Html.Action("CommentList", "Subgoal", new { subgoalId = Model.Id })
         </p>
     </div>
+
+    <script>
+    $body = $("body");
+    $(document).on({
+        ajaxStart: function () { $body.addClass("loading"); },
+        ajaxStop: function () { $body.removeClass("loading"); }
+    });
+
+    $(document).ready(function () {
+        $("#upload").click(function () {
+            var data = new FormData();
+
+            //Add the Multiple selected files into the data object
+            var files = $("#files").get(0).files;
+            for (i = 0; i < files.length; i++) {
+                data.append("files" + i, files[i]);
+            }
+
+            //Post the data (files) to the server
+            if (files.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("Details")",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        alert("Successfully Uploaded!");
+                    },
+                    error: function () {
+                        alert("An error occurred!");
+                    },
+                });
+            }
+        });
+    });
+    </script>

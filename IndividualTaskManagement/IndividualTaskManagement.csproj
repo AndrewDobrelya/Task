@@ -269,6 +269,10 @@
     <Compile Include="Migrations\201605221931323_SeventhMigration.Designer.cs">
       <DependentUpon>201605221931323_SeventhMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605230836274_testmigtation.cs" />
+    <Compile Include="Migrations\201605230836274_testmigtation.Designer.cs">
+      <DependentUpon>201605230836274_testmigtation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
@@ -288,6 +292,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -313,7 +318,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -366,8 +373,11 @@
     <Content Include="Views\Subgoal\Edit.cshtml" />
     <Content Include="Views\Subgoal\Comment.cshtml" />
     <Content Include="Views\Subgoal\CommentList.cshtml" />
+    <Content Include="Views\Subgoal\Download.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -406,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605221931323_SeventhMigration.resx">
       <DependentUpon>201605221931323_SeventhMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605230836274_testmigtation.resx">
+      <DependentUpon>201605230836274_testmigtation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

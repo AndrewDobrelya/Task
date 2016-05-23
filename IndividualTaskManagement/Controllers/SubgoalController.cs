@@ -68,6 +68,58 @@ namespace IndividualTaskManagement.Controllers
             return View(subgoal);
         }
 
+
+        [HttpPost]
+        public ActionResult Details(int id)
+        {
+            Subgoal subgoal = db.Subgoal.Find(id);
+            if (subgoal.EndDate < DateTime.Now)
+            {
+                subgoal.Overdue = true;
+            }
+       
+            ViewBag.IsOverdue = subgoal.Overdue;
+            if (HttpContext.Request.Files.AllKeys.Any())
+            {
+                for (int i = 0; i <= HttpContext.Request.Files.Count; i++)
+                {
+                    var file = HttpContext.Request.Files["files" + i];
+                    if (file != null)
+                    {
+                        var folder = Server.MapPath("/Files/" + id + "");
+                        var fileSavePath = Path.Combine(folder, file.FileName);
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+                        file.SaveAs(fileSavePath);
+                    }
+                }
+            }
+            return View(subgoal);
+        }
+
+
+        public ActionResult Download(int? subgoalId)
+        {
+            Subgoal subgoal = db.Subgoal.Find(subgoalId);
+            string[] files = Directory.GetFiles(Server.MapPath("/Files/"+subgoalId+""));
+            for (int i = 0; i < files.Length; i++)
+            {
+                files[i] = Path.GetFileName(files[i]);
+            }
+            ViewBag.Files = files;
+            return View(subgoal);
+        }
+
+
+        public FileResult DownloadFile(string fileName, int subgoalId)
+        {
+            var filepath = System.IO.Path.Combine(Server.MapPath("/Files/" + subgoalId + "/"), fileName);
+            return File(filepath, MimeMapping.GetMimeMapping(filepath), fileName);
+        }
+
+
         [Authorize(Roles = "teacher")]
         public ActionResult CreateSubgoal()
         {
@@ -267,6 +319,15 @@ namespace IndividualTaskManagement.Controllers
 
 
             return Redirect("Details/" + subgoalId);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }
