@@ -1,11 +1,9 @@
 ﻿@using IndividualTaskManagement.Models
-@model CreateSubgoalModel
+@model  EditSubgoalModel
 @{
     var studentName = ViewBag.StudentName;
     ViewBag.Title = "Edit";
-    var users = new ApplicationDbContext().Users;
-    var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
-    var student = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId));
+
 }
 
 <h2>Edit</h2>
@@ -31,12 +29,11 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
+                @Html.DisplayName("FullName")
 
                 <div class="col-md-10">
                     <h1>@studentName</h1>
-                    @*@Html.DropDownListFor(model => model.student_id, new SelectList(student, "id", "LastName"), new { @class = "col-md-4" })                
-                    @Html.ValidationMessageFor(model => model.student_id)*@
+       
                 </div>
             </div>
            
@@ -72,7 +69,7 @@
 
     }
     <div>
-        @Html.ActionLink("Back to the list", "Index")
+        <a href="javascript:history.go(-1);">go back</a>
     </div>
 
 }

@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201605251634384_FixSubgoal.Designer.cs">
       <DependentUpon>201605251634384_FixSubgoal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605252012359_someFix.cs" />
+    <Compile Include="Migrations\201605252012359_someFix.Designer.cs">
+      <DependentUpon>201605252012359_someFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
@@ -450,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605251634384_FixSubgoal.resx">
       <DependentUpon>201605251634384_FixSubgoal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605252012359_someFix.resx">
+      <DependentUpon>201605252012359_someFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

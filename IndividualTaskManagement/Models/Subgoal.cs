@@ -10,13 +10,10 @@ namespace IndividualTaskManagement.Models
     public class Subgoal
     {
         public int Id { get; set; }
-        public virtual Goal Goal { get; set; }
-        [Required]
+        public virtual Goal Goal { get; set; }      
         public string Name { get; set; }
-        public string Description { get; set; }
-        [Required]
-        public virtual ApplicationUser Student { get; set; }
-        [Required]
+        public string Description { get; set; }       
+        public virtual ApplicationUser Student { get; set; }      
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }

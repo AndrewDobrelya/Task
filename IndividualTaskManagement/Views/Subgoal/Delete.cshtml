@@ -33,14 +33,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("Вернуться", "Index")
+            @Html.ActionLink("Вернуться", "Details/" + Model.Goal.Id, "Goal")
         </div>
     }
 </div>
-}
-else
-{
-<h3>
-    @Html.Label("Нет доступа к этой странице")
-</h3>
-}

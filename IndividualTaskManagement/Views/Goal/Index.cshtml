@@ -43,12 +43,12 @@
                 <td>
                     @if (item.Completeness == 100)
                     {
-
-                        <h6>Task comlete</h6>
+                        @Html.DisplayName("Task comlete")
+                       
                     }
                     else
                     {
-                       <h6>Task not comlete</h6>
+                      @Html.DisplayName("Task not comlete")
                     }
                 </td> 
                 <td>

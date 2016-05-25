@@ -82,7 +82,7 @@ namespace IndividualTaskManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subject subject = db.Subject.Find(id);
-            string subjectName = subject.Name;
+            //string subjectName = subject.Name;
             if (subject == null)
             {
                 return HttpNotFound();

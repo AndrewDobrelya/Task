@@ -38,13 +38,7 @@ namespace IndividualTaskManagement.Controllers
             string user = User.Identity.GetUserId();
             var subgoal = db.Subgoal.Include(s => s.Student).Where(s => s.Student.Id == user);
             return View(subgoal.ToList());
-        }
-
-        //private bool IsNeededStudent(string subgoalId)
-        //{
-        //    var subgoal = User.Identity.GetUserId();
-        //    return subgoal == subgoalId;
-        //}
+        }  
 
         [Authorize(Roles = "student, teacher")]
         public ActionResult Details(int? id)
@@ -104,12 +98,20 @@ namespace IndividualTaskManagement.Controllers
         public ActionResult Download(int? subgoalId)
         {
             Subgoal subgoal = db.Subgoal.Find(subgoalId);
-            string[] files = Directory.GetFiles(Server.MapPath("/Files/"+subgoalId+""));
-            for (int i = 0; i < files.Length; i++)
+
+            try
             {
-                files[i] = Path.GetFileName(files[i]);
+                string[] files = Directory.GetFiles(Server.MapPath("/Files/" + subgoalId + ""));
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Path.GetFileName(files[i]);
+                }
+                ViewBag.Files = files;
             }
-            ViewBag.Files = files;
+            catch (DirectoryNotFoundException)
+            {
+                //For successful entering to repository
+            }
             return View(subgoal);
         }
 
@@ -124,7 +126,11 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         public ActionResult CreateSubgoal()
         {
-            ViewBag.Students = from student in db.Users.ToList() select new { Id = student.Id, FullName = student.FirstName + " " + student.LastName };
+            var users = new ApplicationDbContext().Users;
+            var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
+            var students = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId)).ToList();
+            ViewBag.Students = from student in students select new { Id = student.Id, FullName = student.FirstName + " " + student.LastName };
+            
             return View();
         }
 
@@ -153,9 +159,8 @@ namespace IndividualTaskManagement.Controllers
                         Body = "Your security code is: " 
                     };
                     await UserManager.SmsService.SendAsync(message);
-                }
-                //await UserManager.SendEmailAsync(subgoal.Student.Id, "Confirm your account", "Please confirm your account by clicking");
-                return RedirectToAction("Index", "Goal");
+                }                
+                return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
             }
             return View(subgoalview);            
         }
@@ -165,15 +170,27 @@ namespace IndividualTaskManagement.Controllers
             List<Subgoal> subgoal = new List<Subgoal>();
             ViewBag.GoalId = goalId;
            
-            foreach (var t in db.Subgoal.ToList())
+            foreach (var item in db.Subgoal.ToList())
             {
-                if (t.Goal.Id == goalId)
+                if (item.Goal.Id == goalId)
                 {
-                    subgoal.Add(t);
+                    subgoal.Add(item);
                    
                 }
             }
             return View(subgoal);
+        }
+
+        public ActionResult SubgoalFinish(int id)
+        {
+            var subgoal = db.Subgoal.FirstOrDefault(s => s.Id == id);
+            
+            subgoal.AtTerm = true;
+         
+                db.SaveChanges();
+       
+            return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
+
         }
 
         [Authorize(Roles = "teacher")]
@@ -184,18 +201,18 @@ namespace IndividualTaskManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subgoal subgoal = db.Subgoal.Find(id);
-            ViewBag.StudentName = subgoal.Student.LastName;
+            ViewBag.StudentName = subgoal.Student.FirstName +" "+ subgoal.Student.LastName;
             if (subgoal == null)
             {
                 return HttpNotFound();
             }
-            return View(new CreateSubgoalModel(subgoal));
+            return View(new EditSubgoalModel(subgoal));
         }
 
         [Authorize(Roles = "teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CreateSubgoalModel subgoalview)
+        public ActionResult Edit(EditSubgoalModel subgoalview)
         {
             
             if (ModelState.IsValid)
@@ -213,6 +230,7 @@ namespace IndividualTaskManagement.Controllers
             }
             return View(subgoalview);
         }
+
 
         [Authorize(Roles = "teacher, admin")]
         public ActionResult Delete(int? id)
@@ -236,18 +254,20 @@ namespace IndividualTaskManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+           
             Subgoal subgoal = db.Subgoal.Find(id);
+            int s = subgoal.Goal.Id;
             db.Subgoal.Remove(subgoal);       
             db.SaveChanges();
             if (User.IsInRole("admin"))
             {
 
-                return RedirectToAction("List");
+                return RedirectToAction("Details/" + s, "Goal");
             }
             else
             {
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + s, "Goal");
             }
         }
 

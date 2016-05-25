@@ -291,3 +291,4 @@ C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\Individ
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FixGoalModel.resources
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FixSubjectModel.resources
 C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.FixSubgoal.resources
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.someFix.resources
