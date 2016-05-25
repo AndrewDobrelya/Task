@@ -13,7 +13,7 @@ namespace IndividualTaskManagement.Models
         public virtual Goal Goal { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ApplicationUser Student { get; set; }
+        public virtual ApplicationUser Student { get; set; }
         public DateTime EndDate { get; set; }
         public bool Overdue { get; set; }
         public bool AtTerm { get; set; }

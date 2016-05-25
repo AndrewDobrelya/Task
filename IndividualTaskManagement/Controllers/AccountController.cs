@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IndividualTaskManagement.Models;
+using System.Net.Mail;
+using IndividualTaskManagement.ExceptionFilter;
 
 namespace IndividualTaskManagement.Controllers
 {
@@ -14,6 +16,9 @@ namespace IndividualTaskManagement.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+  
+
 
         public AccountController()
         {
@@ -152,24 +157,42 @@ namespace IndividualTaskManagement.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [SmtpException]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-               
+                
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, IsConfirmed = false };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                string errorMail = user.Email;
                 if (result.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(user.Id, model.Role);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);                 
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    try
+                    {
+                   
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    }
+                    catch
+                    {
 
+
+                        IdentityResult ressult = await UserManager.DeleteAsync(user);
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                        throw new SmtpException(errorMail);
+                        
+                    }
+               
+
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                     return View("DisplayEmail");
                 }
                 AddErrors(result);
+
             }
 
             // If we got this far, something failed, redisplay form
@@ -427,6 +450,8 @@ namespace IndividualTaskManagement.Controllers
 
             base.Dispose(disposing);
         }
+
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

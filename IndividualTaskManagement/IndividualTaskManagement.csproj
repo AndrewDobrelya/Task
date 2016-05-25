@@ -226,6 +226,7 @@
     <Compile Include="Controllers\SubgoalController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\GoalController.cs" />
+    <Compile Include="ExceptionFilter\RangeExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,6 +273,10 @@
     <Compile Include="Migrations\201605230836274_testmigtation.cs" />
     <Compile Include="Migrations\201605230836274_testmigtation.Designer.cs">
       <DependentUpon>201605230836274_testmigtation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605241846018_fixEditSubgoal.cs" />
+    <Compile Include="Migrations\201605241846018_fixEditSubgoal.Designer.cs">
+      <DependentUpon>201605241846018_fixEditSubgoal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -374,6 +379,7 @@
     <Content Include="Views\Subgoal\Comment.cshtml" />
     <Content Include="Views\Subgoal\CommentList.cshtml" />
     <Content Include="Views\Subgoal\Download.cshtml" />
+    <Content Include="Views\Account\MailError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
@@ -419,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605230836274_testmigtation.resx">
       <DependentUpon>201605230836274_testmigtation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241846018_fixEditSubgoal.resx">
+      <DependentUpon>201605241846018_fixEditSubgoal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

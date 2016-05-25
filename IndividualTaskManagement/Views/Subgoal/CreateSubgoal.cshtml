@@ -37,7 +37,8 @@
                 @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
                
                 <div class="col-md-10">                    
-                    @Html.DropDownListFor(model => model.student_id, new SelectList(student, "Id", "LastName"), new { @class = "col-md-4" })
+                    @*@Html.DropDownListFor(model => model.student_id, new SelectList(student, "id", "LastName"), new { @class = "col-md-4" })*@
+                    @Html.DropDownListFor(model => model.student_id, new SelectList(@ViewBag.Students, "Id", "FullName"), new { @class = "col-md-4" })
                     @Html.ValidationMessageFor(model => model.student_id)
                 </div>
             </div>
@@ -51,8 +52,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">                  
-                    @*<input type="date" runat="server" name="endDate"  value="YY-MM-DD">*@
+                <div class="col-md-10">                
                     @Html.EditorFor(model => model.endDate, new { @type = "date" })
                     @Html.ValidationMessageFor(model => model.endDate)
                 </div>

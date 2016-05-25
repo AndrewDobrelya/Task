@@ -287,3 +287,4 @@ C:\Users\Andrew\Desktop\Task\IndividualTaskManagement\obj\Debug\IndividualTaskMa
 C:\Users\Andrew\Desktop\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.csproj.GenerateResource.Cache
 C:\Users\Andrew\Desktop\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.dll
 C:\Users\Andrew\Desktop\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.pdb
+C:\Users\Andrew\Documents\GitHub\Task\IndividualTaskManagement\obj\Debug\IndividualTaskManagement.Migrations.fixEditSubgoal.resources

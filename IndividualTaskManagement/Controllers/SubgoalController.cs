@@ -59,6 +59,7 @@ namespace IndividualTaskManagement.Controllers
             {
                 subgoal.Overdue = true;
             }
+            
             ViewBag.IsOverdue = subgoal.Overdue;
             //ViewBag.Student = IsNeededStudent(subgoal.Student.Id);
             if (subgoal == null)
@@ -115,7 +116,7 @@ namespace IndividualTaskManagement.Controllers
 
         public FileResult DownloadFile(string fileName, int subgoalId)
         {
-            var filepath = System.IO.Path.Combine(Server.MapPath("/Files/" + subgoalId + "/"), fileName);
+            var filepath = Path.Combine(Server.MapPath("/Files/" + subgoalId + "/"), fileName);
             return File(filepath, MimeMapping.GetMimeMapping(filepath), fileName);
         }
 
@@ -123,6 +124,7 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         public ActionResult CreateSubgoal()
         {
+            ViewBag.Students = from student in db.Users.ToList() select new { Id = student.Id, FullName = student.FirstName + " " + student.LastName };
             return View();
         }
 
@@ -131,10 +133,11 @@ namespace IndividualTaskManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateSubgoal( CreateSubgoalModel subgoalview, int id)
         {
+
             if (ModelState.IsValid)
             {
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-           
+               
 
                 var subgoal = new Subgoal() { Name = subgoalview.name, Student = db.Users.Find(subgoalview.student_id), Description = subgoalview.description, EndDate = subgoalview.endDate };
                 subgoal.Goal = db.Goal.First(c => c.Id == id);
@@ -142,7 +145,7 @@ namespace IndividualTaskManagement.Controllers
                 subgoal.AtTerm = false;
                 db.Subgoal.Add(subgoal);
                 db.SaveChanges();
-                if (UserManager.SmsService != null)
+                if (UserManager.SmsService != null && subgoal.Student.PhoneNumber != null)
                 {
                     var message = new IdentityMessage
                     {
@@ -181,29 +184,32 @@ namespace IndividualTaskManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subgoal subgoal = db.Subgoal.Find(id);
-          
+            ViewBag.StudentName = subgoal.Student.LastName;
             if (subgoal == null)
             {
                 return HttpNotFound();
             }
-            return View(new EditSubgoalModel(subgoal));
+            return View(new CreateSubgoalModel(subgoal));
         }
 
         [Authorize(Roles = "teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditSubgoalModel subgoalview)
+        public ActionResult Edit(CreateSubgoalModel subgoalview)
         {
+            
             if (ModelState.IsValid)
             {
                 var subgoal = db.Subgoal.Find(subgoalview.id);
+                
+                //subgoal.Student = db.Users.Find(subgoalview.id);
                 subgoal.Name = subgoalview.name;
                 subgoal.Description = subgoalview.description;
-                subgoal.AtTerm = subgoalview.atTerm;
+                //subgoal.AtTerm = subgoalview.atTerm;
                 subgoal.EndDate = subgoalview.endDate;
                 db.Entry(subgoal).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details");
+                return RedirectToAction("Details/" + subgoal.Goal.Id,"Goal");
             }
             return View(subgoalview);
         }

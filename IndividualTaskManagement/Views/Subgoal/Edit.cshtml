@@ -1,10 +1,11 @@
 ﻿@using IndividualTaskManagement.Models
-@model EditSubgoalModel
+@model CreateSubgoalModel
 @{
-//ViewBag.Title = "Edit";
-//var users = new ApplicationDbContext().Users;
-//var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
-//var student = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId));
+    var studentName = ViewBag.StudentName;
+    ViewBag.Title = "Edit";
+    var users = new ApplicationDbContext().Users;
+    var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
+    var student = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId));
 }
 
 <h2>Edit</h2>
@@ -29,15 +30,16 @@
                     @Html.ValidationMessageFor(model => model.name)
                 </div>
             </div>
-            @*<div class="form-group">
+            <div class="form-group">
                 @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
 
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.student_id, new SelectList(student, "Id", "LastName"), new { @class = "col-md-4" })
-                    @Html.ValidationMessageFor(model => model.student_id)
+                    <h1>@studentName</h1>
+                    @*@Html.DropDownListFor(model => model.student_id, new SelectList(student, "id", "LastName"), new { @class = "col-md-4" })                
+                    @Html.ValidationMessageFor(model => model.student_id)*@
                 </div>
-            </div>*@
-
+            </div>
+           
             <div class="form-group">
                 @Html.LabelFor(model => model.description, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -45,13 +47,13 @@
                     @Html.ValidationMessageFor(model => model.description)
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.atTerm, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.CheckBoxFor(model => model.atTerm, new { @class = " col-md-4" })
                     @Html.ValidationMessageFor(model => model.atTerm)
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
