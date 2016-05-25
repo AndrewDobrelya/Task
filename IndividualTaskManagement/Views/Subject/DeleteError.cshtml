@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    Layout = null;
+    ViewBag.Title = "Извините, возникли проблемы!";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ошибка диапазона допустимых значений</title>
+</head>
+<body>
+    <h2>Извините</h2>
+    <span>
+        Subject <b>@Model</b>
+        con not be deleted cause ...
+    </span>
+    <div>
+        @Html.ActionLink("Измените это значение и попробуйте снова", "Index")
+    </div>
+</body>
+</html>

@@ -3,6 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using IndividualTaskManagement.Models;
+using System.Data.Entity.Infrastructure;
+using IndividualTaskManagement.ExceptionFilter;
+using System.Data.SqlClient;
 
 namespace IndividualTaskManagement.Controllers
 {
@@ -10,8 +13,12 @@ namespace IndividualTaskManagement.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Subject
-        public ActionResult Index()
+        public ActionResult Index(ManageMessageId? message)
         {
+            ViewBag.StatusMessage =
+
+               message == ManageMessageId.Error ? "Subject can not be deleted cause..."
+               : "";
             return View(db.Subject.ToList());
         }
 
@@ -66,21 +73,35 @@ namespace IndividualTaskManagement.Controllers
         }
     
         // GET: Subject/Delete/5
+       
         public ActionResult Delete(int? id)
         {
+            ManageMessageId? message;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subject subject = db.Subject.Find(id);
+            string subjectName = subject.Name;
             if (subject == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                db.Subject.Remove(subject);
-                db.SaveChanges();
+              db.Subject.Remove(subject);               
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException )
+                {
+                    message = ManageMessageId.Error;
+                  
+                    return RedirectToAction("Index", new { Message = message });
+                }
+
+              
                 return RedirectToAction("Index");
             }            
         }
@@ -92,6 +113,13 @@ namespace IndividualTaskManagement.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public enum ManageMessageId
+        {
+         
+          
+            Error
         }
     }
 }

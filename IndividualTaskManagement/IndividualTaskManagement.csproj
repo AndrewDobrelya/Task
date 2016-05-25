@@ -226,7 +226,7 @@
     <Compile Include="Controllers\SubgoalController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\GoalController.cs" />
-    <Compile Include="ExceptionFilter\RangeExceptionAttribute.cs" />
+    <Compile Include="ExceptionFilter\SmtpExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +277,18 @@
     <Compile Include="Migrations\201605241846018_fixEditSubgoal.cs" />
     <Compile Include="Migrations\201605241846018_fixEditSubgoal.Designer.cs">
       <DependentUpon>201605241846018_fixEditSubgoal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251235133_FixGoalModel.cs" />
+    <Compile Include="Migrations\201605251235133_FixGoalModel.Designer.cs">
+      <DependentUpon>201605251235133_FixGoalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251423226_FixSubjectModel.cs" />
+    <Compile Include="Migrations\201605251423226_FixSubjectModel.Designer.cs">
+      <DependentUpon>201605251423226_FixSubjectModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251634384_FixSubgoal.cs" />
+    <Compile Include="Migrations\201605251634384_FixSubgoal.Designer.cs">
+      <DependentUpon>201605251634384_FixSubgoal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -380,6 +392,7 @@
     <Content Include="Views\Subgoal\CommentList.cshtml" />
     <Content Include="Views\Subgoal\Download.cshtml" />
     <Content Include="Views\Account\MailError.cshtml" />
+    <Content Include="Views\Subject\DeleteError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
@@ -428,6 +441,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605241846018_fixEditSubgoal.resx">
       <DependentUpon>201605241846018_fixEditSubgoal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251235133_FixGoalModel.resx">
+      <DependentUpon>201605251235133_FixGoalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251423226_FixSubjectModel.resx">
+      <DependentUpon>201605251423226_FixSubjectModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251634384_FixSubgoal.resx">
+      <DependentUpon>201605251634384_FixSubgoal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

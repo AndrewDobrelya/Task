@@ -10,6 +10,7 @@ namespace IndividualTaskManagement.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Task")]
         public string Name { get; set; }
 
@@ -19,6 +20,7 @@ namespace IndividualTaskManagement.Models
         [Display(Name = "Author")]
         public virtual ApplicationUser Author { get; set; }
 
+        [Required]
         [Display(Name = "Subject")]
         public virtual Subject Subject { get; set; }
 
@@ -42,9 +44,11 @@ namespace IndividualTaskManagement.Models
         
         public int id { get; set; }
 
+        [Required]
         [Display(Name = "Task")]
         public string name { get; set; }
 
+        [Required]
         [Display(Name = "Subject")]
         public int subject_id { get; set; }      
     }

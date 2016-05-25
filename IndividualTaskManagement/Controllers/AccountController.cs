@@ -177,10 +177,8 @@ namespace IndividualTaskManagement.Controllers
                    
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     }
-                    catch
+                    catch(SmtpException)
                     {
-
-
                         IdentityResult ressult = await UserManager.DeleteAsync(user);
                         AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                         throw new SmtpException(errorMail);

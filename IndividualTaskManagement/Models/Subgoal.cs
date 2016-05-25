@@ -11,9 +11,14 @@ namespace IndividualTaskManagement.Models
     {
         public int Id { get; set; }
         public virtual Goal Goal { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required]
         public virtual ApplicationUser Student { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
         public bool Overdue { get; set; }
         public bool AtTerm { get; set; }
@@ -38,9 +43,12 @@ namespace IndividualTaskManagement.Models
         public int id { get; set; }
 
         [Display(Name = "Task")]
+        [Required]
         public string name { get; set; }
+        [Required]
         public string student_id { get; set; }
         public string description { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime endDate { get; set; }       
@@ -63,11 +71,12 @@ namespace IndividualTaskManagement.Models
         }
 
         public int id { get; set; }
-
+        [Required]
         [Display(Name = "Task")]
         public string name { get; set; }       
         public string description { get; set; }
         public bool atTerm { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime endDate { get; set; }

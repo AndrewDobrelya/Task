@@ -139,6 +139,8 @@ namespace IndividualTaskManagement.Controllers
             int countCoplite = complite.Count();
             int copleteness = 100 / countsubgoal * countCoplite;
             goal.Completeness = copleteness;
+            goal.Name = goal.Name;
+            goal.Subject = goal.Subject;
             db.Entry(goal).State = EntityState.Modified;
             db.SaveChanges();
             if (goal == null)
