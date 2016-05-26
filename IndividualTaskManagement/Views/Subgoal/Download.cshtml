@@ -3,19 +3,72 @@
 @{
     ViewBag.Title = "Download Files";
     var Files = (ViewBag.Files as string[]);
-
-    if (Files != null && Files.Any())
-    {
-        foreach (var file in Files)
-        {
-            <br />
-            @Html.ActionLink(file, "DownloadFile", new { fileName = file, subgoalId = Model.Id })
-            <br />
-
-        }
-    }
-    else
-    {
-        <label>No File(s) to Download</label>
-    }
+    var Dates = (ViewBag.Dates as string[]);
+    var Length = (ViewBag.Length as string[]);
 }
+
+@if (Files != null && Files.Any())
+{
+    <table>
+
+        </table>
+    <table class="table">
+        <tr>
+            <td>
+
+                <table class="table">
+                    <tr><h3>File</h3></tr>
+                    @foreach (var file in Files)
+                {
+
+
+                        <tr>
+                            <td>
+                                <h6>
+                                    @Html.ActionLink(file, "DownloadFile", new { fileName = file, subgoalId = Model.Id })
+                                </h6>
+                            </td>
+                        </tr>
+
+
+                    }
+                   
+                </table>
+            </td>
+            <td>
+                <table class="table">
+                    <tr><h3>Create date</h3></tr>
+                    @foreach (var date in Dates)
+                {
+
+                        <tr>
+                            <td>
+                                <h6>@date</h6>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+                </td>
+            <td>
+                <table class="table">
+                    <tr><h3>File length</h3></tr>
+                    @foreach (var len in Length)
+                {
+
+                        <tr>
+                            <td>
+                                <h6>@len</h6>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <label>No File(s) to Download</label>
+}
+

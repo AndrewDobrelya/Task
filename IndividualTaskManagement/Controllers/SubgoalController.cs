@@ -88,6 +88,7 @@ namespace IndividualTaskManagement.Controllers
                             Directory.CreateDirectory(folder);
                         }
                         file.SaveAs(fileSavePath);
+                       string s = new DirectoryInfo(folder).GetFiles().Length.ToString();
                     }
                 }
             }
@@ -102,11 +103,30 @@ namespace IndividualTaskManagement.Controllers
             try
             {
                 string[] files = Directory.GetFiles(Server.MapPath("/Files/" + subgoalId + ""));
+                string[] dates = new string[files.Count()];
+                string[] length = new string[files.Count()];
                 for (int i = 0; i < files.Length; i++)
                 {
+                    FileInfo oFileInfo = new FileInfo(files[i]);
+                    dates[i] = oFileInfo.CreationTime.ToString();
+                    if (oFileInfo.Length >= (1 << 20))
+                    {
+                        length[i] = string.Format("{0} megabytes", oFileInfo.Length >> 20);
+                    }
+                    else if (oFileInfo.Length >= (1 << 10))
+                    {
+                        length[i] = string.Format("{0} kilobytes", oFileInfo.Length >> 10);
+                    }
+                    else if (oFileInfo.Length < (1 << 10))
+                    {
+                        length[i] = string.Format("{0} bytes", oFileInfo.Length);
+                    }
+                                  
                     files[i] = Path.GetFileName(files[i]);
                 }
                 ViewBag.Files = files;
+                ViewBag.Dates = dates;
+                ViewBag.Length = length;
             }
             catch (DirectoryNotFoundException)
             {
@@ -122,6 +142,55 @@ namespace IndividualTaskManagement.Controllers
             return File(filepath, MimeMapping.GetMimeMapping(filepath), fileName);
         }
 
+        private void UpdateComletness(Subgoal subgoal , bool isDelete)
+        {
+            if (isDelete)
+            {
+
+            }
+            var goal = db.Goal.Find(subgoal.Goal.Id);            
+            var subgoals = db.Subgoal.Where(s => s.Goal.Id == subgoal.Goal.Id);
+            int countsubgoal = subgoals.Count();       
+            var complite = subgoals.Where(s => s.AtTerm == true);
+            int countCoplite = complite.Count();
+            if (isDelete)
+            {
+                if (subgoal.AtTerm == true)
+                {
+                    countCoplite = countCoplite - 1;
+                }
+               countsubgoal = countsubgoal - 1;
+               
+            }
+            if (countCoplite == 0)
+            {
+                goal.Completeness = 0;
+                goal.Name = goal.Name;
+               
+            }
+            else
+            {
+                int copleteness = 100 / countsubgoal * countCoplite;
+                goal.Completeness = copleteness;
+                goal.Name = goal.Name;
+            }      
+                      
+            db.Entry(goal).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        private void SendSMSNotification(Subgoal subgoal)
+        {
+            if (UserManager.SmsService != null && subgoal.Student.PhoneNumber != null)
+            {
+                var message = new IdentityMessage
+                {
+                    Destination = subgoal.Student.PhoneNumber,
+                    Body = "Your security code is: "
+                };
+                UserManager.SmsService.Send(message);
+            }
+        }
 
         [Authorize(Roles = "teacher")]
         public ActionResult CreateSubgoal()
@@ -137,29 +206,20 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateSubgoal( CreateSubgoalModel subgoalview, int id)
+        public ActionResult CreateSubgoal( CreateSubgoalModel subgoalview, int id)
         {
 
             if (ModelState.IsValid)
             {
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-               
-
                 var subgoal = new Subgoal() { Name = subgoalview.name, Student = db.Users.Find(subgoalview.student_id), Description = subgoalview.description, EndDate = subgoalview.endDate };
                 subgoal.Goal = db.Goal.First(c => c.Id == id);
                 subgoal.Overdue = false;
                 subgoal.AtTerm = false;
                 db.Subgoal.Add(subgoal);
                 db.SaveChanges();
-                if (UserManager.SmsService != null && subgoal.Student.PhoneNumber != null)
-                {
-                    var message = new IdentityMessage
-                    {
-                        Destination = subgoal.Student.PhoneNumber,
-                        Body = "Your security code is: " 
-                    };
-                    await UserManager.SmsService.SendAsync(message);
-                }                
+                UpdateComletness(subgoal, false);
+                //SendSMSNotification(subgoal);                        
                 return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
             }
             return View(subgoalview);            
@@ -186,9 +246,10 @@ namespace IndividualTaskManagement.Controllers
             var subgoal = db.Subgoal.FirstOrDefault(s => s.Id == id);
             
             subgoal.AtTerm = true;
-         
-                db.SaveChanges();
-       
+           
+            //SendSMSNotification(subgoal);
+            db.SaveChanges();
+            UpdateComletness(subgoal , false);
             return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
 
         }
@@ -225,7 +286,7 @@ namespace IndividualTaskManagement.Controllers
                 //subgoal.AtTerm = subgoalview.atTerm;
                 subgoal.EndDate = subgoalview.endDate;
                 db.Entry(subgoal).State = EntityState.Modified;
-                db.SaveChanges();
+                db.SaveChanges();              
                 return RedirectToAction("Details/" + subgoal.Goal.Id,"Goal");
             }
             return View(subgoalview);
@@ -257,8 +318,9 @@ namespace IndividualTaskManagement.Controllers
            
             Subgoal subgoal = db.Subgoal.Find(id);
             int s = subgoal.Goal.Id;
+            UpdateComletness(subgoal, true);
             db.Subgoal.Remove(subgoal);       
-            db.SaveChanges();
+            db.SaveChanges();           
             if (User.IsInRole("admin"))
             {
 
