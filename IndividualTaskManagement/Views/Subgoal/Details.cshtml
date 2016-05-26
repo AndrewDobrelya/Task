@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    var filesCount = ViewBag.CountFiles;
     var isOverdue = ViewBag.IsOverdue;
 }
 
@@ -49,11 +50,23 @@
             </dd>
             <dd>
                 <input type='file' id="files" multiple="multiple" />
-                <input type="button" id="upload" value="Upload" />
+                <input type="button" onclick="window.location.reload()" id="upload" value="Upload" />
             </dd>
-            <dd>
-                @Html.ActionLink("Download", "Download", new { subgoalId = Model.Id })
+            @if (filesCount == 0)
+            {
+                <dd>
+            <h6>Repository empty</h6>
+                    </dd>
+            }
+            else
+            {
+                <h6>@filesCount</h6>
+                <dd>
+                    @Html.ActionLink("Download", "Download", new { subgoalId = Model.Id })
                 </dd>
+            }
+
+           
         </dl>
     </div>
     <div class="col-md-11">
@@ -71,7 +84,12 @@
         </p>
     </div>
 
+
+
     <script>
+
+     
+
     $body = $("body");
     $(document).on({
         ajaxStart: function () { $body.addClass("loading"); },

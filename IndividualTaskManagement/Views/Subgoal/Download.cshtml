@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Download Files";
+    var sub = ViewBag.id;
     var Files = (ViewBag.Files as string[]);
     var Dates = (ViewBag.Dates as string[]);
     var Length = (ViewBag.Length as string[]);
@@ -9,9 +10,7 @@
 
 @if (Files != null && Files.Any())
 {
-    <table>
-
-        </table>
+  
     <table class="table">
         <tr>
             <td>
@@ -64,6 +63,27 @@
                     }
                 </table>
             </td>
+            <td>
+
+                <table class="table">
+                    <tr><h3>&nbsp</h3></tr>
+                    @foreach (var file in Files)
+                {
+
+
+                        <tr>
+                            <td>
+                                <h6>
+                                    @Html.ActionLink("Delete", "DeleteFile", new { fileName = file, subgoalId = Model.Id })
+                                </h6>
+                            </td>
+                        </tr>
+
+
+                    }
+
+                </table>
+            </td>
         </tr>
     </table>
 }
@@ -72,3 +92,9 @@ else
     <label>No File(s) to Download</label>
 }
 
+
+
+    <div class="form-actions no-color">
+       
+        @Html.ActionLink("Вернуться", "Details" , new { id = sub})
+    </div>

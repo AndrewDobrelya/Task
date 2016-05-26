@@ -53,7 +53,17 @@ namespace IndividualTaskManagement.Controllers
             {
                 subgoal.Overdue = true;
             }
-            
+            var folder = Server.MapPath("/Files/" + id + "");
+            try
+            {
+                ViewBag.CountFiles = new DirectoryInfo(folder).GetFiles().Length;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                ViewBag.CountFiles = 0;
+                //For successful entering to repository
+            }
+
             ViewBag.IsOverdue = subgoal.Overdue;
             //ViewBag.Student = IsNeededStudent(subgoal.Student.Id);
             if (subgoal == null)
@@ -74,6 +84,7 @@ namespace IndividualTaskManagement.Controllers
             }
        
             ViewBag.IsOverdue = subgoal.Overdue;
+    
             if (HttpContext.Request.Files.AllKeys.Any())
             {
                 for (int i = 0; i <= HttpContext.Request.Files.Count; i++)
@@ -82,13 +93,14 @@ namespace IndividualTaskManagement.Controllers
                     if (file != null)
                     {
                         var folder = Server.MapPath("/Files/" + id + "");
+                     
                         var fileSavePath = Path.Combine(folder, file.FileName);
                         if (!Directory.Exists(folder))
                         {
                             Directory.CreateDirectory(folder);
                         }
                         file.SaveAs(fileSavePath);
-                       string s = new DirectoryInfo(folder).GetFiles().Length.ToString();
+
                     }
                 }
             }
@@ -127,6 +139,7 @@ namespace IndividualTaskManagement.Controllers
                 ViewBag.Files = files;
                 ViewBag.Dates = dates;
                 ViewBag.Length = length;
+                ViewBag.id = subgoalId;
             }
             catch (DirectoryNotFoundException)
             {
@@ -141,6 +154,14 @@ namespace IndividualTaskManagement.Controllers
             var filepath = Path.Combine(Server.MapPath("/Files/" + subgoalId + "/"), fileName);
             return File(filepath, MimeMapping.GetMimeMapping(filepath), fileName);
         }
+
+        public ActionResult DeleteFile(string fileName, int subgoalId)
+        {
+            var filepath = Path.Combine(Server.MapPath("/Files/" + subgoalId + "/"), fileName);
+            FileInfo oFileInfo = new FileInfo(filepath);
+            oFileInfo.Delete();
+            return RedirectToAction("Download/", new {subgoalId = subgoalId } );
+        } 
 
         private void UpdateComletness(Subgoal subgoal , bool isDelete)
         {
