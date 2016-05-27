@@ -449,12 +449,16 @@ textarea {
 	resize: vertical;
 }
 
+
+
 select {
 	border: 1px solid #E5E7E9;
 	border-radius: 6px;
-	height: 46px;
+	height: 40px;
+    width:218px;
 	padding: 12px;
 	outline: none;
+
 }
 
 .label {

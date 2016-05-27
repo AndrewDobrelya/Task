@@ -271,7 +271,6 @@
     <Content Include="App_Data\aspnet-IndividualTaskManagement-20160519043203_log.ldf">
       <DependentUpon>aspnet-IndividualTaskManagement-20160519043203.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="css\bootstrap.css" />

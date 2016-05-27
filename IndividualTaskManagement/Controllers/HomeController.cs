@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IndividualTaskManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,19 +11,26 @@ namespace IndividualTaskManagement.Controllers
 {
     public class HomeController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        [HttpGet]
         public ActionResult About()
         {
-            ViewBag.Message = "Your applicssssssation description page.";
+
+            ViewBag.Statuses = db.Users.Where(u => u.FirstName == "Andrew").ToList();
+            ViewBag.Categories = db.Users.Where(u => u.FirstName == "Andrew").ToList();
+            ViewBag.Users = db.Subgoal.Where(u => u.Name == "Moon").ToList();
 
             return View();
-        }
+        }          
 
+            
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

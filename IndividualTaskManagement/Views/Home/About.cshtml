@@ -1,7 +1,45 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<div style="height: 50px;"></div>
+@Styles.Render("~/Scripts/css")
+@using (Html.BeginForm("About", "Home", FormMethod.Post, new { @class = "well span8" }))
+{
+    <div class="row">
+        <div class="span3">
+            <label>Заголовок</label>
+            <input type="text" class="span3" placeholder="Введите заголовок тикета" name="Title">
+            <label>Дата регистрации</label>
+            <input type="text" class="span3" placeholder="Дата регистрации" name="Date">
+            <label>Категория</label>
+            <select id="category" name="CategoryId" class="span3">
+                <option value="na" selected="">Выбрать...</option>
+                @foreach (var c in ViewBag.Categories)
+                {
+                    <option value="@c.UserName">@c.UserName</option>
+                }
 
-<p>Use this area to provide additional information.</p>
+            </select>
+            <label>Статус</label>
+            <select id="status" name="StatusId" class="span3">
+                <option value="na" selected="">Выбрать...</option>
+
+                @foreach (var c in ViewBag.Statuses)
+                {
+                    <option value="@c.UserName">@c.UserName</option>
+                }
+            </select>
+            <label>Пользователь</label>
+            <select id="user" name="UserId" class="span3">
+                <option value="na" selected="">Выбрать...</option>
+                @foreach (var c in ViewBag.Users)
+                {
+                    <option value="@c.Name">@c.Name @c.Name</option>
+                }
+            </select>
+        </div>
+        <div class="span5">
+            <label>Описание</label>
+            <textarea name="description" id="description" class="input-xlarge span5" rows="10"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary pull-right">Отправить</button>
+    </div>
+}

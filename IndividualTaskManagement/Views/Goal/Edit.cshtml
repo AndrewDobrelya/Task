@@ -6,43 +6,52 @@
 }
 
 <h2>Edit</h2>
+<div class="well span8">
+    <style>
+        .center {
+            margin: auto;
+            width: 60%;
+        }
+    </style>
 
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Введите данные</h4>
-    <hr />
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.id)
+        <div class="form-horizontal">
+            <h4  class="center">Введите данные</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.name, new { @class = " col-md-4" })
-            @Html.ValidationMessageFor(model => model.name)
+            <div class="form-group" style="margin-left:25%">
+                @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.name, new { @class = " col-md-4" })
+                    @Html.ValidationMessageFor(model => model.name)
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left:25%">
+                @Html.LabelFor(model => model.subject_id, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.subject_id, new SelectList(subject, "id", "Name"), new { @class = "col-md-4" })
+                    @Html.ValidationMessageFor(model => model.subject_id)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success pull-right" />
+                </div>
+                <div>
+                    @Html.ActionLink("Back to the list", "Index", new object { }, new { @class = "btn btn-primary pull-left" })
+                </div>
+            </div>
         </div>
-    </div>
+    }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.subject_id, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.subject_id, new SelectList(subject, "id", "Name"), new { @class = "col-md-4" })
-            @Html.ValidationMessageFor(model => model.subject_id)
-        </div>
-    </div>
+ 
 
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-default" />
-        </div>
-    </div>
 </div>
-}
-
-<div>
-    @Html.ActionLink("Back to the list", "Index")
-</div>
-

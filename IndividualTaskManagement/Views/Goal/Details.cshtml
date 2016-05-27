@@ -5,40 +5,46 @@
 
 <h2>Details</h2>
 
-<div class="col-md-4 ">
-    <div style="padding-top:10px">
-        <hr />
-        <dl class="body">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.StartDate)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Subject)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Subject.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Completeness)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Completeness)
-            </dd>
-        </dl>
+<div class="form-group">     
+    <table class="table" style="margin-top:auto">
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Name)
+        </td>
+            </tr>
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.StartDate)
+        </td>
+            </tr>
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Subject.Name)
+        </td>
+            </tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Completeness)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Completeness)
+        </td>
+    </table>
+    <div class="form-group">
+        <p>
+            @Html.ActionLink("add subtask", "CreateSubgoal", "Subgoal", new { id = Model.Id }, new { @class = "btn btn-success pull-left" })
+           
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("add subtask", "CreateSubgoal", "Subgoal", new { id = Model.Id }, null) |
-        @Html.ActionLink("Вернуться к списку", "Index")
-    </p>
+        
 </div>
 
 <div class="col-md-11">

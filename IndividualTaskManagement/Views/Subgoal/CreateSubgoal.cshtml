@@ -1,63 +1,78 @@
 ﻿@using IndividualTaskManagement.Models
 @model CreateSubgoalModel
 @{
+
     ViewBag.Title = "CreateSubgoal";
 }
 
-<h2>Create Task</h2>
-
-@if (User.IsInRole("teacher"))
-{
-    using (Html.BeginForm())
+<h2>Create Subtask</h2>
+<div class="well span8">
+    @if (User.IsInRole("teacher"))
     {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <h4>Subtask</h4>
-            <hr />
-            @Html.ValidationSummary(true)
-            <div class="form-group">
-                @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.name, new { @class = " col-md-4" })
-                    @Html.ValidationMessageFor(model => model.name)
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <style>
+                .center {
+                    margin: auto;
+                    width: 60%;
+                }
+            </style>
+            <div >
+                <h4 class="center">Subtask</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group" style="margin-left:25%">
+                    @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.name, new { @class = " col-md-4" })
+                        @Html.ValidationMessageFor(model => model.name)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.student_id, new SelectList(@ViewBag.Students, "Id", "FullName"), new { @class = " col-md-4" })
-                    @Html.ValidationMessageFor(model => model.student_id)
+                <div class="form-group" style="margin-left:25%">
+                    @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.student_id, new SelectList(@ViewBag.Students, "Id", "FullName"))
+                        @Html.ValidationMessageFor(model => model.student_id)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.description, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.description, new { @class = " col-md-4" })
-                    @Html.ValidationMessageFor(model => model.description)
+               
+                <div class="form-group" style="margin-left:25%">
+                    @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width:200px">
+                        @Html.EditorFor(model => model.endDate, new { @type = "date" })
+                        @Html.ValidationMessageFor(model => model.endDate)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.endDate, new { @type = "date" })
-                    @Html.ValidationMessageFor(model => model.endDate)
+                <div class="form-group" style="margin-left:45%" >
+                @Html.LabelFor(model => model.description, new { @class = "control-label col-md-2" })   
+                    </div>
+                <div class="form-group" style="margin-left:25%" >                  
+                    <div class="col-md-10">
+                        @*<textarea name="description" id="description" class="input-xlarge span5" rows="10"></textarea>*@
+                        @Html.TextAreaFor(model => model.description, new { @class = "input-xlarge span5" })
+                        @Html.ValidationMessageFor(model => model.description)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+              
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create"  class="btn btn-success pull-right"/>
+                    </div>
+                    <a href="javascript:history.back()" class="btn btn-primary pull-left">Назад</a>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        }
+        
     }
-    <a href="javascript:history.back()">Назад</a>
-}
-else
-{
-    <h3>
-        @Html.Label("There is no access to this page")
-    </h3>
-}
-<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    else
+    {
+        <h3>
+            @Html.Label("There is no access to this page")
+        </h3>
+    }
+
+</div>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
