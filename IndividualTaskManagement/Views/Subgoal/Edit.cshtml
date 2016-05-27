@@ -1,17 +1,13 @@
 ﻿@using IndividualTaskManagement.Models
 @model  EditSubgoalModel
 @{
-    var studentName = ViewBag.StudentName;
+    string studentName = ViewBag.StudentName;
     ViewBag.Title = "Edit";
-
+    int goalId = ViewBag.id;
 }
-
-<h2>Edit</h2>
 
 @if (User.IsInRole("teacher"))
 {
-    <h2>Create Task</h2>
-
     using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -20,7 +16,12 @@
             <h4>Subtask</h4>
             <hr />
             @Html.ValidationSummary(true)
-
+            <div class="form-group">
+                @Html.DisplayName("FullName")
+                <div class="col-md-10">
+                    @Html.DisplayName(studentName)
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -28,15 +29,8 @@
                     @Html.ValidationMessageFor(model => model.name)
                 </div>
             </div>
-            <div class="form-group">
-                @Html.DisplayName("FullName")
 
-                <div class="col-md-10">
-                    <h1>@studentName</h1>
-       
-                </div>
-            </div>
-           
+
             <div class="form-group">
                 @Html.LabelFor(model => model.description, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -45,12 +39,12 @@
                 </div>
             </div>
             @*<div class="form-group">
-                @Html.LabelFor(model => model.atTerm, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.CheckBoxFor(model => model.atTerm, new { @class = " col-md-4" })
-                    @Html.ValidationMessageFor(model => model.atTerm)
-                </div>
-            </div>*@
+                    @Html.LabelFor(model => model.atTerm, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.atTerm, new { @class = " col-md-4" })
+                        @Html.ValidationMessageFor(model => model.atTerm)
+                    </div>
+                </div>*@
             <div class="form-group">
                 @Html.LabelFor(model => model.endDate, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -68,9 +62,10 @@
         </div>
 
     }
-    <div>
-        <a href="javascript:history.go(-1);">go back</a>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Вернуться", "Details/" + goalId, "Goal")
     </div>
+
 
 }
 else

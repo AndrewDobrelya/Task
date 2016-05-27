@@ -1,60 +1,95 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+﻿<head>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/jqueryui")*@
-    @Scripts.Render("~/bundles/jqueryval")
-
-
-    <script>
-        jQuery(document).ready(function () {
-
-            // Check for FileReader API (HTML5) support.
-            if (!window.FileReader) {
-                alert('This browser does not support the FileReader API.');
-            }
-        });
-    </script>
+  
+    <!-- Basic -->
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Web Fonts  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/vendor/owl-carousel/owl.carousel.css" media="screen">
+    <link rel="stylesheet" href="~/vendor/owl-carousel/owl.theme.css" media="screen">
+    <link rel="stylesheet" href="~/vendor/magnific-popup/magnific-popup.css" media="screen">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/css/theme.css">
+    <link rel="stylesheet" href="~/css/theme-elements.css">
+    <link rel="stylesheet" href="~/css/theme-animate.css">
+    <!-- Current Page Styles -->
+    <link rel="stylesheet" href="~/vendor/rs-plugin/css/settings.css" media="screen">
+    <link rel="stylesheet" href="~/vendor/circle-flip-slideshow/css/component.css" media="screen">
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/css/skins/blue.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/custom.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/css/theme-responsive.css" />
+    <!-- Head Libs -->
+    <script src="~/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="~/css/ie.css">
+    <script src="~/vendor/respond.js"></script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>                  
+<header>
+    <div class="container">   
+            <nav>
+                <ul class="nav nav-pills nav-top">
+                    <li>
+                        <a href="~/Home/About"><i class="icon icon-angle-right"></i>О проекте</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/Contact"><i class="icon icon-angle-right"></i>Контакты</a>
+                    </li>
+                    <li class="phone">
+                        <span><i class="icon icon-phone"></i>(050) 67 35 103</span>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-            <div class="modal">
-                <!-- Place at bottom of page -->
-            </div>
+            </nav>
+
+            <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
+                <i class="icon icon-bars"></i>
+            </button>
         </div>
+    <div class="navbar-collapse nav-main-collapse collapse">
+        <div class="container">
 
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            <div class="social-icons">
 
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+                <ul class="social-icons">
+                    <li class="facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook">Facebook</a></li>
+                    <li class="vk"><a href="https://vk.com/andrewdobrelya" target="_blank" title="VK">VK</a></li>
+                    <li class="github"><a href="https://github.com/WarGeH/RBRK/tree/master/Homeschooledsystem" target="_blank" title="Github">Github</a></li>
+                </ul>
+            </div>
+
+
+            @Html.Partial("_LoginPartial")
+            <nav class="nav-main mega-menu">
+                <ul class="nav nav-pills nav-main" id="mainMenu">
+                    <li>
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+
+                    @if (User.IsInRole("teacher"))
+                    {
+                        <li>@Html.ActionLink("Tasks", "Index", "Goal")</li>
+                    }
+                 
+                    @if (User.IsInRole("student"))
+                    {
+                        <li>@Html.ActionLink("All tasks", "Index", "Subgoal")</li>
+                    }
+                  
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="container body-content">
+    @RenderBody()
+    <div class="modal">
+    </div>
+</div>
+@RenderSection("scripts", required: false)

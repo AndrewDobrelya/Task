@@ -5,21 +5,18 @@
     var subject = new ApplicationDbContext().Subject;
 }
 
-<h2>Create</h2>
+<h2>Create Task</h2>
 
 @if (User.IsInRole("teacher"))
 {
-    <h2>Create Task</h2>
-
     using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Введите информацию о курсе</h4>
+            <h4>Введите информацию about task</h4>
             <hr />
             @Html.ValidationSummary(true)
-
             <div class="form-group">
                 @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

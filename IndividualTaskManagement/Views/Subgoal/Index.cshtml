@@ -26,6 +26,9 @@
             <th>
                 @Html.DisplayName("Complete")
             </th>
+            <th>
+                &nbsp
+            </th>
         </tr>
 
         @foreach (var item in Model)
@@ -63,8 +66,24 @@
                        }
                    }
                 </td>
+               
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @if (item.AtTerm == true)
+                    {
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    }
+                    else
+                    {
+                        var days = item.EndDate - DateTime.Now;
+                        if (days.TotalDays > 0)
+                        {
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        }
+                        else
+                        {
+                            @Html.DisplayName("")
+                        }
+                    }
                 </td>   
             </tr>
         }

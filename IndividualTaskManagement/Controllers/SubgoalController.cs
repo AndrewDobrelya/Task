@@ -216,6 +216,8 @@ namespace IndividualTaskManagement.Controllers
         [Authorize(Roles = "teacher")]
         public ActionResult CreateSubgoal()
         {
+            
+        
             var users = new ApplicationDbContext().Users;
             var rolesIdToUser = new ApplicationDbContext().Roles.Where(p => p.Name == "student").SelectMany(p => p.Users).ToList();
             var students = rolesIdToUser.Select(i => users.FirstOrDefault(u => u.Id == i.UserId)).ToList();
@@ -240,7 +242,7 @@ namespace IndividualTaskManagement.Controllers
                 db.Subgoal.Add(subgoal);
                 db.SaveChanges();
                 UpdateComletness(subgoal, false);
-                //SendSMSNotification(subgoal);                        
+                SendSMSNotification(subgoal);
                 return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
             }
             return View(subgoalview);            
@@ -267,8 +269,8 @@ namespace IndividualTaskManagement.Controllers
             var subgoal = db.Subgoal.FirstOrDefault(s => s.Id == id);
             
             subgoal.AtTerm = true;
-           
-            //SendSMSNotification(subgoal);
+
+            SendSMSNotification(subgoal);
             db.SaveChanges();
             UpdateComletness(subgoal , false);
             return RedirectToAction("Details/" + subgoal.Goal.Id, "Goal");
@@ -282,8 +284,9 @@ namespace IndividualTaskManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subgoal subgoal = db.Subgoal.Find(id);
+            Subgoal subgoal = db.Subgoal.Find(id);           
             ViewBag.StudentName = subgoal.Student.FirstName +" "+ subgoal.Student.LastName;
+            ViewBag.id = subgoal.Goal.Id;
             if (subgoal == null)
             {
                 return HttpNotFound();

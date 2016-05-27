@@ -8,88 +8,69 @@
 
 <h2>Details</h2>
 
-@if (isOverdue)
-{
-<h1>Overdue</h1>
-}
-
-<div class="col-md-4 " style="border-right:1px solid #eeeeee">
-    <h2>О курсе</h2>
-  
-    <div style="padding-top:10px">
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Goal.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Goal.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EndDate)
-            </dd>
-            <dd>
-                <input type='file' id="files" multiple="multiple" />
-                <input type="button" onclick="window.location.reload()" id="upload" value="Upload" />
-            </dd>
-            @if (filesCount == 0)
+<div style="padding-top:10px">
+    <hr />
+    <dl class="body">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Goal.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Goal.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dd>
+            <input type='file' id="files" multiple="multiple" />
+            <input type="button" onclick="window.location.reload()" id="upload" value="Upload" />
+        </dd>
+        @if (filesCount == 0)
             {
-                <dd>
-            <h6>Repository empty</h6>
-                    </dd>
-            }
-            else
-            {
-                <h6>@filesCount</h6>
-                <dd>
-                    @Html.ActionLink("Download", "Download", new { subgoalId = Model.Id })
-                </dd>
-            }
-
-           
-        </dl>
-    </div>
-    <div class="col-md-11">
-        <hr />
-        <p>
-            @Html.Action("Comment", "Subgoal", new { subgoalId = Model.Id })
-        </p>
+            <dd>
+                <h6>Repository empty</h6>
+            </dd>
+        }
+        else
+        {
+            <h6>@filesCount</h6>
+            <dd>
+                @Html.ActionLink("Download", "Download", new { subgoalId = Model.Id })
+            </dd>
+        }
+    </dl>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Вернуться", "Details/" + Model.Goal.Id, "Goal")
     </div>
 
-    <br />
-    <div class="col-md-11">
-        <hr />
-        <p>
-            @Html.Action("CommentList", "Subgoal", new { subgoalId = Model.Id })
-        </p>
-    </div>
+</div>
+<div class="col-md-11">
+    <p>
+        @Html.Action("Comment", "Subgoal", new { subgoalId = Model.Id })
+    </p>
+</div>
 
+<div class="col-md-11">
+    <p>
+        @Html.Action("CommentList", "Subgoal", new { subgoalId = Model.Id })
+    </p>
+</div>
 
-
-    <script>
-
-     
-
+<script>
     $body = $("body");
     $(document).on({
         ajaxStart: function () { $body.addClass("loading"); },
@@ -124,4 +105,4 @@
             }
         });
     });
-    </script>
+</script>

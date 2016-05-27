@@ -5,52 +5,43 @@
 
 <h2>Details</h2>
 
-<div class="col-md-4 " style="border-right:1px solid #eeeeee">
-    <h2>О курсе</h2>
-
+<div class="col-md-4 ">
     <div style="padding-top:10px">
         <hr />
-        <dl class="dl-horizontal">
+        <dl class="body">
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-
             <dt>
                 @Html.DisplayNameFor(model => model.StartDate)
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.StartDate)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Subject)
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.Subject.Name)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Completeness)
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.Completeness)
             </dd>
-
         </dl>
     </div>
-    <p>  
+    <p>
         @Html.ActionLink("add subtask", "CreateSubgoal", "Subgoal", new { id = Model.Id }, null) |
         @Html.ActionLink("Вернуться к списку", "Index")
     </p>
 </div>
 
-<div class="col-md-9">
-
+<div class="col-md-11">
     <p>
         @Html.Action("SubgoalList", "Subgoal", new { goalId = Model.Id })
     </p>
