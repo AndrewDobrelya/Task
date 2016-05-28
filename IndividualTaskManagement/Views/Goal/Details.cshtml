@@ -1,54 +1,80 @@
 ﻿@model IndividualTaskManagement.Models.Goal
 @{
     ViewBag.Title = "Details";
+    string color = "";
+}
+@if (Model.Completeness <= 30)
+{
+    color = "#ff1e1f";
+}
+else if (Model.Completeness <= 60)
+{
+    color = "#ff8e1e";
 }
 
-<h2>Details</h2>
+else if (Model.Completeness >= 90)
+{
+    color = "#1eff8d";
+}
 
-<div class="form-group">     
-    <table class="table" style="margin-top:auto">
-        <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <td>
-            @Html.DisplayFor(model => model.Name)
-        </td>
-            </tr>
-        <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <td>
-            @Html.DisplayFor(model => model.StartDate)
-        </td>
-            </tr>
-        <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <td>
-            @Html.DisplayFor(model => model.Subject.Name)
-        </td>
-            </tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Completeness)
-        </th>
-        <td>
-            @Html.DisplayFor(model => model.Completeness)
-        </td>
-    </table>
-    <div class="form-group">
-        <p>
-            @Html.ActionLink("add subtask", "CreateSubgoal", "Subgoal", new { id = Model.Id }, new { @class = "btn btn-success pull-left" })
-           
-        </p>
+
+
+<div class="container">
+    <div class="row center" style="margin-top:100px ">
+        <div class="col-md-12">
+            <h2 class="short word-rotator-title">
+                @Model.Name
+            </h2> 
+            <p class="featured lead">
+                <strong>Task subject</strong> -  @Model.Subject.Name
+            </p>
+            <p class="featured lead">
+               <strong>Task start date</strong> - @Model.StartDate
+            </p>           
+        </div>
     </div>
-        
+</div>
+<div class="container">
+    <div class="row center">
+        <div class="col-md-12">
+            <div>
+                <span class="featured lead">Прогресс проекта - @Model.Completeness%</span>
+            </div>
+            <div class="progress">
+               
+                <div style="background-color: @color" class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="@Model.Completeness" data-appear-progress-animation="@Model.Completeness%" data-appear-animation-delay="200">
+                    <span class="progress-bar-tooltip">@Model.Completeness%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
-<div class="col-md-11">
+<div class="form-group">
+    <p>
+        @Html.ActionLink("add subtask", "CreateSubgoal", "Subgoal", new { id = Model.Id }, new { @class = "btn btn-success pull-left" })
+
+    </p>
+</div>
+<div class="col-md-12">
     <p>
         @Html.Action("SubgoalList", "Subgoal", new { goalId = Model.Id })
     </p>
 </div>
+
+<!-- Libs -->
+<script src="~/vendor/jquery.js"></script>
+<script src="~/js/plugins.js"></script>
+<script src="~/vendor/jquery.easing.js"></script>
+<script src="~/vendor/jquery.appear.js"></script>
+<script src="~/vendor/jquery.cookie.js"></script>
+<script src="~/vendor/bootstrap.js"></script>
+<script src="~/vendor/twitterjs/twitter.js"></script>
+<script src="~/vendor/owl-carousel/owl.carousel.js"></script>
+<script src="~/vendor/magnific-popup/magnific-popup.js"></script>
+<script src="~/vendor/jquery.validate.js"></script>
+<!-- Theme Initializer -->
+<script src="~/js/theme.js"></script>
+<!-- Custom JS -->
+<script src="~/js/custom.js"></script>

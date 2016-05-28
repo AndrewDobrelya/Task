@@ -62,9 +62,7 @@ namespace IndividualTaskManagement.Controllers
             {
                 ViewBag.CountFiles = 0;
                 //For successful entering to repository
-            }
-
-            ViewBag.IsOverdue = subgoal.Overdue;
+            }           
             //ViewBag.Student = IsNeededStudent(subgoal.Student.Id);
             if (subgoal == null)
             {

@@ -1,31 +1,419 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<body>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div class="body">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+        <div role="main" class="main">
+            <div id="content" class="content full">
+
+                <div class="slider-container">
+                    <div class="slider" id="revolutionSlider">
+                        <ul>
+                            <li data-transition="fade" data-slotamount="13" data-masterspeed="300">
+
+                                <img src="~/img/slides/slide-bg.jpg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+
+                                <div class="tp-caption sft stb visible-lg"
+                                     data-x="72"
+                                     data-y="180"
+                                     data-speed="300"
+                                     data-start="1000"
+                                     data-easing="easeOutExpo"><img src="~/img/slides/slide-title-border.png" alt=""></div>
+
+                                <div class="tp-caption top-label lfl stl"
+                                     data-x="122"
+                                     data-y="170"
+                                     data-speed="300"
+                                     data-start="500"
+                                     data-easing="easeOutExpo">Start right now!</div>
+
+                                <div class="tp-caption sft stb visible-lg"
+                                     data-x="292"
+                                     data-y="180"
+                                     data-speed="300"
+                                     data-start="1000"
+                                     data-easing="easeOutExpo"><img src="~/img/slides/slide-title-border.png" alt=""></div>
+
+                                <div class="tp-caption main-label sft stb"
+                                     data-x="179"
+                                     data-y="210"
+                                     data-speed="300"
+                                     data-start="1500"
+                                     data-easing="easeOutExpo">ITS</div>
+
+                                <div class="tp-caption bottom-label sft stb"
+                                     data-x="20"
+                                     data-y="380"
+                                     data-speed="500"
+                                     data-start="2000"
+                                     data-easing="easeOutExpo">Individual task management</div>
+
+                                <div class="tp-caption randomrotate"
+                                     data-x="800"
+                                     data-y="248"
+                                     data-speed="500"
+                                     data-start="2500"
+                                     data-easing="easeOutBack"><img src="~/img/slides/slide-concept-2-1.png" alt=""></div>
+
+                                <div class="tp-caption sfb"
+                                     data-x="850"
+                                     data-y="200"
+                                     data-speed="400"
+                                     data-start="3000"
+                                     data-easing="easeOutBack"><img src="~/img/slides/slide-concept-2-2.png" alt=""></div>
+
+                                <div class="tp-caption sfb"
+                                     data-x="820"
+                                     data-y="170"
+                                     data-speed="700"
+                                     data-start="3150"
+                                     data-easing="easeOutBack"><img src="~/img/slides/slide-concept-2-3.png" alt=""></div>
+
+                                <div class="tp-caption sfb"
+                                     data-x="770"
+                                     data-y="130"
+                                     data-speed="1000"
+                                     data-start="3250"
+                                     data-easing="easeOutBack"><img src="~/img/slides/slide-concept-2-4.png" alt=""></div>
+
+                                <div class="tp-caption sfb"
+                                     data-x="500"
+                                     data-y="80"
+                                     data-speed="600"
+                                     data-start="3450"
+                                     data-easing="easeOutExpo"><img src="~/img/slides/slide-concept-2-5.png" alt=""></div>
+
+                                <div class="tp-caption blackboard-text lfb "
+                                     data-x="530"
+                                     data-y="300"
+                                     data-speed="500"
+                                     data-start="3450"
+                                     data-easing="easeOutExpo" style="font-size: 37px;">The task</div>
+
+                                <div class="tp-caption blackboard-text lfb "
+                                     data-x="555"
+                                     data-y="350"
+                                     data-speed="500"
+                                     data-start="3650"
+                                     data-easing="easeOutExpo" style="font-size: 47px;">will be</div>
+
+                                <div class="tp-caption blackboard-text lfb "
+                                     data-x="580"
+                                     data-y="400"
+                                     data-speed="500"
+                                     data-start="3850"
+                                     data-easing="easeOutExpo" style="font-size: 32px;">complete :)</div>
+                            </li>
+                            <li data-transition="fade" data-slotamount="5" data-masterspeed="1000">
+
+                                <img src="~/img/slides/slide-bg.jpg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+
+                                <div class="tp-caption fade"
+                                     data-x="50"
+                                     data-y="100"
+                                     data-speed="1500"
+                                     data-start="500"
+                                     data-easing="easeOutExpo"><img src="~/img/slides/slide-concept.png" alt=""></div>
+
+                                <div class="tp-caption blackboard-text fade "
+                                     data-x="180"
+                                     data-y="180"
+                                     data-speed="1500"
+                                     data-start="1000"
+                                     data-easing="easeOutExpo" style="font-size: 30px;">Simple</div>
+
+                                <div class="tp-caption blackboard-text fade "
+                                     data-x="120"
+                                     data-y="220"
+                                     data-speed="1500"
+                                     data-start="1200"
+                                     data-easing="easeOutExpo" style="font-size: 40px;">and clear!</div>
+
+                                <div class="tp-caption main-label sft stb"
+                                     data-x="530"
+                                     data-y="150"
+                                     data-speed="300"
+                                     data-start="1500"
+                                     data-easing="easeOutExpo">Time to learn</div>
+
+                                <div class="tp-caption bottom-label sft stb"
+                                     data-x="560"
+                                     data-y="280"
+                                     data-speed="500"
+                                     data-start="2000"
+                                     data-easing="easeOutExpo">Performed project under the teacher control.</div>
+
+
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="home-intro">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>
+                                    A simple and convenient way for tasks control<em>- ITS.</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <h2 class="short word-rotator-title">
+                                ITS it's
+                                <strong class="inverted">
+                                    <span class="word-rotate">
+                                        <span class="word-rotate-items">
+                                            <span>simple</span>
+                                            <span>convenient</span>
+                                            <span>reliable</span>
+                                        </span>
+                                    </span>
+                                </strong>
+                                method of tasks management.
+                            </h2>
+                            <p class="featured lead">
+                                The aim is the development of an application for control of complex tasks for pupils.
+                                Technologies used: C#, ASP.NET MVC, Entity Framework, HTML/CSS/Javasctipt.
+                                As a result, has been implemented web-service  «Complex tasks for pupils».
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-concept">
+                    <div class="container">
+
+                        <div class="row center">
+
+                            <div class="col-md-2 col-md-offset-1">
+                                <div class="process-image" data-appear-animation="bounceIn">
+                                    <img src="~/img/home-concept-item-1.png" alt="" />
+                                    <strong>Register</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="process-image" data-appear-animation="bounceIn" data-appear-animation-delay="200">
+                                    <img src="~/img/home-concept-item-2.png" alt="" />
+                                    <strong>Create task</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="process-image" data-appear-animation="bounceIn" data-appear-animation-delay="400">
+                                    <img src="~/img/home-concept-item-3.png" alt="" />
+                                    <strong>Manage it</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-1">
+                                <div class="project-image">
+                                    <div id="fcSlideshow" class="fc-slideshow">
+                                        <ul class="fc-slides">
+                                            <li><img class="img-responsive" src="~/img/projects/project-home-1.jpg" /></li>
+                                            <li><img class="img-responsive" src="~/img/projects/project-home-2.jpg" /></li>
+                                            <li><img class="img-responsive" src="~/img/projects/project-home-3.jpg" /></li>
+                                        </ul>
+                                    </div>
+                                    <strong class="our-work">Success</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container">
+
+                    <div class="row">
+                        <hr class="tall" />
+                    </div>
+
+                </div>
+
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-8" style="width: 100%">
+                            <h2>Наши <strong>особенности</strong></h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-group"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-file"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-edit"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-comment"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-eye"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="image-icon small user"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-search"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-box">
+                                        <div class="feature-box-icon">
+                                            <i class="icon icon-comments"></i>
+                                        </div>
+                                        <div class="feature-box-info">
+                                            <h4 class="shorter">Something</h4>
+                                            <p class="tall">Text:blablablablabla...!</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="tall" />
+
+
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <!-- Libs -->
+    <script src="~/vendor/jquery.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/vendor/jquery.easing.js"></script>
+    <script src="~/vendor/jquery.appear.js"></script>
+    <script src="~/vendor/jquery.cookie.js"></script>
+    <script src="~/vendor/bootstrap.js"></script>
+    <script src="~/vendor/twitterjs/twitter.js"></script>
+    <script src="~/vendor/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <script src="~/vendor/rs-plugin/js/jquery.themepunch.revolution.js"></script>
+    <script src="~/vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="~/vendor/circle-flip-slideshow/js/jquery.flipshow.js"></script>
+    <script src="~/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/vendor/jquery.validate.js"></script>
+    <!-- Current Page Scripts -->
+    <script src="~/js/views/view.home.js"></script>
+    <script src="~/js/theme.js"></script>
+
+
+    
+</body>
+</html>
+<footer id="footer" class="bottom" style="position:absolute;width: 100%;left: 0;">
+    <div class="container">
+        <div class="row">
+            <div class="footer-ribon">
+                <span>Read in conjunction with ITS</span>
+            </div>
+            <div class="col-md-3">
+                <div class="newsletter">
+                    <h4>Support</h4>
+                    <p>Take part in the improvement and development of our system . Send messages from your suggestions and wishes to us in the mail.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h4>ITM</h4>
+                <div id="tweet" class="twitter" data-account-id="">
+                    <p>Individual task management</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-details">
+                    <h4>Contacts</h4>
+                    <ul class="contact">
+                        <li><p><i class="icon icon-map-marker"></i> <strong>Address:</strong> ave . Lenina 14 , Kharkov, Ukraine</p></li>
+                        <li><p><i class="icon icon-phone"></i> <strong>Phone number:</strong> (050) 67 35 103</p></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <h4>Follow us on</h4>
+                <div class="social-icons">
+                    <ul class="social-icons">
+                        <li class="facebook"><a href="https://www.facebook.com/dobrelya.andrew" target="_blank" data-placement="bottom" rel="tooltip" title="Facebook">Facebook</a></li>
+                        <li class="vk"><a href="https://vk.com/andrewdobrelya" target="_blank" data-placement="bottom" rel="tooltip" title="VK">VK</a></li>
+                        <li class="github"><a href="https://github.com/AndrewDobrelya/Task" target="_blank" data-placement="bottom" rel="tooltip" title="Github">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="/Home/Index" class="logo">
+                        <img alt="Porto Website Template" class="img-responsive" src="~/img/logo-footer1.png">
+                    </a>
+                </div>
+                <div class="col-md-11">
+                    <p align="center">© Copyright @DateTime.Today.Year. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</footer>
+

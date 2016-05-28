@@ -5,6 +5,8 @@
 
 @if (Model.Count() > 0)
 {
+    <div class="row center">
+        <div class="col-md-12">
     <table class="table">
         <tr>
             <th>
@@ -92,6 +94,8 @@
         }
 
     </table>
+        </div>
+        </div>
     <div class="form-group">
         <p>
             @Html.ActionLink("Вернуться к списку", "Index", "Goal", new object { }, new { @class = "btn btn-primary pull-right" })

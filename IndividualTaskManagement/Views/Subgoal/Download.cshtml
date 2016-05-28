@@ -16,7 +16,7 @@
             <td>
 
                 <table class="table">
-                    <tr><h3>File</h3></tr>
+                    <tr><h5>File</h5></tr>
                     @foreach (var file in Files)
                 {
 
@@ -36,7 +36,7 @@
             </td>
             <td>
                 <table class="table">
-                    <tr><h3>Create date</h3></tr>
+                    <tr><h5>Create date</h5></tr>
                     @foreach (var date in Dates)
                 {
 
@@ -51,7 +51,7 @@
                 </td>
             <td>
                 <table class="table">
-                    <tr><h3>File length</h3></tr>
+                    <tr><h5>File length</h5></tr>
                     @foreach (var len in Length)
                 {
 
@@ -66,7 +66,7 @@
             <td>
 
                 <table class="table">
-                    <tr><h3>&nbsp</h3></tr>
+                    <tr><h5>&nbsp</h5></tr>
                     @foreach (var file in Files)
                 {
 
@@ -96,5 +96,6 @@ else
 
     <div class="form-actions no-color">
        
-        @Html.ActionLink("Вернуться", "Details" , new { id = sub})
+        @Html.ActionLink("Вернуться", "Details" , new { id = sub}, new { @class = "btn btn-primary pull-left" })
     </div>
+<script src="~/js/theme.js"></script>
